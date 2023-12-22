@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-type RestErr interface {
+type RestError interface {
 	Message() string
 	Status() int
 	Error() string
@@ -38,8 +38,8 @@ func (e restErr) Causes() []interface{} {
 	return e.ErrCauses
 }
 
-func NewRestError(message string, status int, err string, causes []interface{}) RestErr {
-	return restErr{
+func NewRestError(message string, status int, err string, causes []interface{}) RestError {
+	return &restErr{
 		ErrMessage: message,
 		ErrStatus:  status,
 		ErrError:   err,
@@ -47,7 +47,7 @@ func NewRestError(message string, status int, err string, causes []interface{}) 
 	}
 }
 
-func NewRestErrorFromBytes(bytes []byte) (RestErr, error) {
+func NewRestErrorFromBytes(bytes []byte) (RestError, error) {
 	var apiErr restErr
 	if err := json.Unmarshal(bytes, &apiErr); err != nil {
 		return nil, errors.New("invalid json")
@@ -55,7 +55,7 @@ func NewRestErrorFromBytes(bytes []byte) (RestErr, error) {
 	return apiErr, nil
 }
 
-func NewBadRequestError(message string) RestErr {
+func NewBadRequestError(message string) RestError {
 	return restErr{
 		ErrMessage: message,
 		ErrStatus:  http.StatusBadRequest,
@@ -63,7 +63,7 @@ func NewBadRequestError(message string) RestErr {
 	}
 }
 
-func NewNotFoundError(message string) RestErr {
+func NewNotFoundError(message string) RestError {
 	return restErr{
 		ErrMessage: message,
 		ErrStatus:  http.StatusNotFound,
@@ -71,7 +71,7 @@ func NewNotFoundError(message string) RestErr {
 	}
 }
 
-func NewUnauthorizedError(message string) RestErr {
+func NewUnauthorizedError(message string) RestError {
 	return restErr{
 		ErrMessage: message,
 		ErrStatus:  http.StatusUnauthorized,
@@ -79,7 +79,7 @@ func NewUnauthorizedError(message string) RestErr {
 	}
 }
 
-func NewInternalServerError(message string, err error) RestErr {
+func NewInternalServerError(message string, err error) RestError {
 	result := restErr{
 		ErrMessage: message,
 		ErrStatus:  http.StatusInternalServerError,
