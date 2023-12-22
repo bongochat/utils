@@ -1,2 +1,1 @@
-# bongochat-utils-go
-BongoChat Utils Go Library
+# BongoChat Utils Go Library
