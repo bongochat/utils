@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/bongochat/utils/date"
 	"github.com/bongochat/utils/logger"
 	"github.com/bongochat/utils/resterrors"
 )
@@ -20,5 +19,4 @@ func main() {
 		logger.Error("There was an error", err)
 	}
 	logger.Info(msg)
-	logger.Info(date.GetCurrentDate())
 }
