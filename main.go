@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/bongochat/utils/v1/date"
-	"github.com/bongochat/utils/v1/logger"
-	"github.com/bongochat/utils/v1/resterrors"
+	"github.com/bongochat/utils/date"
+	"github.com/bongochat/utils/logger"
+	"github.com/bongochat/utils/resterrors"
 )
 
 func errTest() (string, resterrors.RestError) {
