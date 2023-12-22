@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	dateLayout = "2023-12-25T15:04:05Z" // YYYY-MM-DDTHH:MM:SS
+	dateLayout = "2006-01-02T15:04:05Z" // YYYY-MM-DDTHH:MM:SS
 )
 
 func GetNow() time.Time {
