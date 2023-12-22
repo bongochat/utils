@@ -1,4 +1,4 @@
-module github.com/bongochat/utils
+module github.com/bongochat/utils/v1
 
 go 1.21.3
 
