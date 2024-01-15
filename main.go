@@ -7,7 +7,7 @@ import (
 
 func errTest() (string, resterrors.RestError) {
 	if 1+1 == 1 {
-		return "", resterrors.NewNotFoundError("This is not found error")
+		return "", resterrors.NewNotFoundError("This is not found error", "")
 	}
 	return "No error", nil
 }
