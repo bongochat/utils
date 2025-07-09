@@ -101,3 +101,12 @@ func NewInternalServerError(message string, displayMessage string, err error) Re
 	}
 	return result
 }
+
+func NewTooManyRequestsError(message string, displayMessage string) RestError {
+	return restErr{
+		ErrMessage:     message,
+		DisplayMessage: displayMessage,
+		ErrStatus:      http.StatusTooManyRequests,
+		ErrError:       "too_many_requests",
+	}
+}
