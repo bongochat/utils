@@ -2,6 +2,7 @@ package user
 
 import (
 	"strconv"
+	"strings"
 
 	"github.com/bongochat/utils/resterrors"
 	"github.com/gin-gonic/gin"
@@ -28,6 +29,24 @@ func GetUserID(c *gin.Context) (int64, resterrors.RestError) {
 	}
 
 	return userId, nil
+}
+
+func GetAccessToken(c *gin.Context) (string, resterrors.RestError) {
+	authHeader := c.GetHeader("Authorization")
+	if authHeader == "" {
+		return "", resterrors.NewUnauthorizedError("authorization header missing", "")
+	}
+
+	if !strings.HasPrefix(authHeader, "Bearer ") {
+		return "", resterrors.NewUnauthorizedError("invalid token format", "")
+	}
+
+	token := strings.TrimPrefix(authHeader, "Bearer ")
+	if token == "" {
+		return "", resterrors.NewUnauthorizedError("token is empty", "")
+	}
+
+	return token, nil
 }
 
 func GetClientID(clientIdParam string) (string, resterrors.RestError) {
