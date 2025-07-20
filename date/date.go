@@ -89,3 +89,15 @@ func DateFormat(dateStr string) (string, resterrors.RestError) {
 	// Return the date in DD-MM-YYYY format
 	return parsedDate.Format("02-01-2006"), nil
 }
+
+// DateFormatForDB takes a date string in DD-MM-YYYY format and returns it in YYYY-MM-DD format.
+func DateFormatForDB(dateStr string) (string, resterrors.RestError) {
+	// Parse the date using the DD-MM-YYYY format
+	parsedDate, err := time.Parse("02-01-2006", dateStr)
+	if err != nil {
+		return "", resterrors.NewInternalServerError("Invalid date format", "", err)
+	}
+
+	// Return the date in YYYY-MM-DD format
+	return parsedDate.Format("2006-01-02"), nil
+}
