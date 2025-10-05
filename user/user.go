@@ -16,6 +16,21 @@ func GetID(userIdParam string) (int64, resterrors.RestError) {
 	return userId, nil
 }
 
+func GetAccountNumber(c *gin.Context) (int64, resterrors.RestError) {
+	accountNumberAny, exists := c.Get("accountnumber")
+	if !exists {
+		return 0, resterrors.NewUnauthorizedError("account number not found in context", "")
+	}
+
+	// Type assertion: userId should be int64 as set in middleware
+	accountNumber, ok := accountNumberAny.(int64)
+	if !ok {
+		return 0, resterrors.NewUnauthorizedError("account number has invalid type", "")
+	}
+
+	return accountNumber, nil
+}
+
 func GetUserID(c *gin.Context) (int64, resterrors.RestError) {
 	userIdAny, exists := c.Get("userId")
 	if !exists {
